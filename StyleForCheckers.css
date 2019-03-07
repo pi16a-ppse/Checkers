@@ -77,3 +77,9 @@ body , html{
 	z-index:  7;
 	display: none;
 }
+@media only screen and (max-width : 640px){
+	.table{
+		width: 400px;
+		height: 400px;	
+	}
+}
