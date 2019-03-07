@@ -17,3 +17,13 @@ body , html{
 .black_square{
 	background-color :#BA7A3A;
 }
+.clear_float{
+	clear: both;
+}
+
+.table{
+	position: relative;
+	width: 640px;
+	height: 640px;
+	margin: 0 auto;
+}
