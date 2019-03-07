@@ -79,3 +79,17 @@ checker.prototype.changeCoord = function(X,Y){
 	this.coordY +=Y;
 	this.coordX += X;
 }
+checker.prototype.checkIfKing = function () {
+	if(this.coordY == 8 && !this.king &&this.color == "white"){
+		this.king = true;
+		this.id.style.border = "4px solid #FFFF00";
+	}
+	if(this.coordY == 1 && !this.king &&this.color == "black"){
+		this.king = true;
+		this.id.style.border = "4px solid #FFFF00";
+	}
+}
+/*===============Инициализация игровых полей=================================*/
+for (var i = 1; i <=64; i++)
+	block[i] =new square_p(square_class[i],i);
+/*==================================================*/
