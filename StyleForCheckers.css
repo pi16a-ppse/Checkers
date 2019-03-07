@@ -69,3 +69,10 @@ body , html{
   -o-transition: 0.3s ease-in-out;
   transition: 0.3s ease-in-out;
 }
+.black_checker{
+	background: #00001F;
+ -webkit-transition: 0.3s ease-in-out;
+	-moz-transition: 0.3s ease-in-out;
+  -o-transition: 0.3s ease-in-out;
+  transition: 0.3s ease-in-out;
+}
