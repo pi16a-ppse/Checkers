@@ -31,3 +31,14 @@ var anotherMove;
 var mustAttack = false;
 var multiplier = 1
 var tableLimit, reverseTableLimit ,  moveUpLeft,moveUpRight, moveDownLeft,moveDownRight , tableLimitLeft, tableLimitRight;
+/*===============получить размерность=================*/
+	getDimension();
+	if(windowWidth > 640){
+		moveLength = 80;
+		moveDeviation = 10;
+	}
+	else{
+		moveLength = 50;
+		moveDeviation = 6;
+	}
+/*================объявление класса=========*/
