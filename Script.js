@@ -22,3 +22,12 @@ var selectedPiece,selectedPieceindex;
 var upRight,upLeft,downLeft,downRight;  // все возможные варианты для дамки
 var contor = 0 , gameOver = 0;
 var bigScreen = 1;
+var block = [];
+var wChecker = [];
+var bChecker = [];
+var theChecker ;
+var oneMove;
+var anotherMove;
+var mustAttack = false;
+var multiplier = 1
+var tableLimit, reverseTableLimit ,  moveUpLeft,moveUpRight, moveDownLeft,moveDownRight , tableLimitLeft, tableLimitRight;
