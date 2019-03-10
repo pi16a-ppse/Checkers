@@ -90,6 +90,52 @@ checker.prototype.checkIfKing = function () {
 	}
 }
 /*===============Инициализация игровых полей=================================*/
-for (var i = 1; i <=64; i++)
+for (var i = 1; i <= 65; i++)
 	block[i] =new square_p(square_class[i],i);
-/*==================================================*/
+/*================Инициализация дамки=================================*/
+
+	//Белая дамка 
+for (var i = 1; i <= 4; i++){
+	w_checker[i] = new checker(white_checker_class[i], "white", 2*i -1 );
+	w_checker[i].setCoord(0,0);
+	block[2*i - 1].ocupied = true;
+	block[2*i - 1].pieceId =w_checker[i];
+}
+
+for (var i = 5; i <= 8; i++){
+	w_checker[i] = new checker(white_checker_class[i], "white", 2*i );
+	w_checker[i].setCoord(0,0);
+	block[2*i].ocupied = true;
+	block[2*i].pieceId = w_checker[i];
+}
+
+for (var i = 9; i <= 12; i++){
+	w_checker[i] = new checker(white_checker_class[i], "white", 2*i - 1 );
+	w_checker[i].setCoord(0,0);
+	block[2*i - 1].ocupied = true;
+	block[2*i - 1].pieceId = w_checker[i];
+}
+
+//Чёрная дамка
+for (var i = 1; i <= 4; i++){
+	b_checker[i] = new checker(black_checker_class[i], "black", 56 + 2*i  );
+	b_checker[i].setCoord(0,0);
+	block[56 +  2*i ].ocupied = true;
+	block[56+  2*i ].pieceId =b_checker[i];
+}
+
+for (var i = 5; i <= 8; i++){
+	b_checker[i] = new checker(black_checker_class[i], "black", 40 +  2*i - 1 );
+	b_checker[i].setCoord(0,0);
+	block[ 40 + 2*i - 1].ocupied = true;
+	block[ 40 + 2*i - 1].pieceId = b_checker[i];
+}
+
+for (var i = 9; i <= 12; i++){
+	b_checker[i] = new checker(black_checker_class[i], "black", 24 + 2*i  );
+	b_checker[i].setCoord(0,0);
+	block[24 + 2*i ].ocupied = true;
+	block[24 + 2*i ].pieceId = b_checker[i];
+}
+/*================ВЫБОР ЧАСТИ==============*/
+the_checker = w_checker;
