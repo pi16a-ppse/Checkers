@@ -139,3 +139,51 @@ for (var i = 9; i <= 12; i++){
 }
 /*================ВЫБОР ЧАСТИ==============*/
 the_checker = w_checker;
+function showMoves (piece) {
+	var match = false;
+	mustAttack = false;
+	if(selectedPiece){
+			erase_roads(selectedPiece);
+	}
+	selectedPiece = piece;
+	var i,j; // сохраняет индекс дамки
+	for ( j = 1; j <= 12; j++){
+		if(the_checker[j].id == piece){
+			i = j;
+			selectedPieceindex = j;
+			match = true;
+		}
+	}
+
+	if(oneMove && !attackMoves(oneMove)){
+		changeTurns(oneMove);
+		oneMove = undefined;
+		return false;
+	}
+	if(oneMove && oneMove != the_checker[i] ){
+		return false;
+	}
+
+	if(!match) {
+	 return 0 ; // если совпадений не найдено; происходит, когда красный движется, и вы нажимаете на черном
+	}
+
+	/*===теперь в соответствии с их цветом я устанавливаю края и движения дамки===*/
+	if(the_checker[i].color =="white"){
+		tableLimit = 8;
+		tableLimitRight = 1;
+		tableLimitLeft = 8;
+		moveUpRight = 7;
+		moveUpLeft = 9;
+		moveDownRight = - 9;
+		moveDownLeft = -7;
+	}
+	else{
+		tableLimit = 1;
+		tableLimitRight = 8;
+		tableLimitLeft = 1;
+		moveUpRight = -7;
+		moveUpLeft = -9;
+		moveDownRight = 9;
+		moveDownLeft = 7;
+	}
