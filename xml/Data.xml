@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-model href="http://docbook.org/xml/5.1/rng/docbook.rng" schematypens="http://relaxng.org/ns/structure/1.0"?>
+<?xml-model href="http://docbook.org/xml/5.1/rng/docbook.rng" type="application/xml" schematypens="http://purl.oclc.org/dsdl/schematron"?>
+<article xmlns="http://docbook.org/ns/docbook"
+    xmlns:xlink="http://www.w3.org/1999/xlink" version="5.1">
+    
+    <info>
+        <title>Documentation project Saper</title>
+        <author>
+            <personname>
+                <firstname>Alexander</firstname>
+                <surname>Semik</surname>
+            </personname>
+        </author>
+        <copyright>
+            <year>2019</year>
+            <holder>Alexander Semik</holder>
+        </copyright>
+    </info>
+    <part>
+        <title>Documentation project</title>
+        <chapter>
+            <title>Project description</title>
+            <para>"Шашки" (eng. "Checkers") - настольная игра.</para>
+            <section>
+                <title>How to play</title>
+                <para>Шашки — логическая настольная игра для двух игроков, заключающаяся в передвижении определённым образом фишек-шашек по клеткам шашечной доски.</para>
+                <para>Во время партии каждому игроку принадлежат шашки одного цвета: чёрного или белого (иногда других цветов, один из которых, считается тёмным, а другой — светлым).</para>
+                <para>Цель игры — взять все шашки соперника или лишить их возможности хода (запереть). Основные правила игры, которые действуют во всех вариантах шашек:</para>
+                <para>Все шашки, участвующие в партии, выставляются перед началом игры на доску. Далее они передвигаются по полям доски и могут быть сняты с неё в случае боя шашкой противника.</para>
+                <para>Брать шашку, находящуюся под боем, обязательно.</para>
+                <para>Существует только два вида шашек: простые и дамки. В начале партии все шашки простые. Простая шашка может превратиться в дамку, если она достигнет последнего противоположного горизонтального ряда доски (дамочного поля).</para>
+                <para>Простые шашки ходят только вперёд на следующее поле. Дамки могут ходить и вперёд и назад.</para></section>
+        </chapter>
+        <chapter>
+            <title>Realization details</title>
+            <section>
+                <title>Code win game</title>
+                
+                <programlisting><![CDATA[
+	               function checkIfLost(){
+	               var i;
+	               for(i = 1 ; i <= 12; i++)
+	                   if(the_checker[i].alive)
+	                       return false;
+	                   return true;
+	                }
+	                ]]></programlisting>
+            </section>
+            <section>
+                <title>Init after load page.</title>
+                
+                <programlisting><![CDATA[
+	                   var square_p = function(square,index){
+                        	this.id = square;
+                        	this.ocupied = false;
+                        	this.pieceId = undefined;
+                        	this.id.onclick = function() {
+                        		makeMove(index);
+                        	}
+                        }
+                        var checker = function(piece,color,square) {
+                        	this.id = piece;
+                        	this.color = color;
+                        	this.king = false;
+                        	this.ocupied_square = square;
+                        	this.alive = true;
+                        	this.attack = false;
+                        	if(square%8){
+                        		this.coordX= square%8;
+                        		this.coordY = Math.floor(square/8) + 1 ;
+                        	}
+                        	else{
+                        		this.coordX = 8;
+                        		this.coordY = square/8 ;
+                        	}
+                        	this.id.onclick = function  () {
+                        		showMoves(piece);	
+                        	}
+                        }
+	                ]]></programlisting>
+                
+            </section>
+        </chapter>
+    </part>
+</article>
