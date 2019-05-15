@@ -1,37 +1,29 @@
-
-
-var square_class = document.getElementsByClassName("square");
-var white_checker_class = document.getElementsByClassName("white_checker");
-var black_checker_class = document.getElementsByClassName("black_checker");
-var table = document.getElementById("table");
-var score = document.getElementById("score");
-var black_background = document.getElementById("black_background");
-var moveSound = document.getElementById("moveSound");
-var winSound = document.getElementById("winSound");
-var windowHeight = window.innerHeight
-|| document.documentElement.clientHeight
-|| document.body.clientHeight;  ;
-var windowWidth =  window.innerWidth
-|| document.documentElement.clientWidth
-|| document.body.clientWidth;
-var moveLength = 80 ;
-var moveDeviation = 10;
-var Dimension = 1;
-var selectedPiece,selectedPieceindex;
-var upRight,upLeft,downLeft,downRight;  // все возможные варианты для дамки
-var contor = 0 , gameOver = 0;
-var bigScreen = 1;
-
-var block = [];
-var w_checker = [];
-var b_checker = [];
-var the_checker ;
-var oneMove;
-var anotherMove;
-var mustAttack = false;
-var multiplier = 1
-
-var tableLimit,reverse_tableLimit ,  moveUpLeft,moveUpRight, moveDownLeft,moveDownRight , tableLimitLeft, tableLimitRight;
+var squareClass = document.getElementsByClassName("square");	/*класс игрового поля (класс квадрата)*/
+var whiteCheckerClass = document.getElementsByClassName("white_checker");	/*класс белых шашек*/
+var blackCheckerClass = document.getElementsByClassName("black_checker");	/*класс чёрных шашек*/
+var table = document.getElementById("table");	/*таблица*/
+var score = document.getElementById("score");	/*счёт партии*/
+var blackBackground = document.getElementById("blackBackground");
+var moveSound = document.getElementById("moveSound");	/*звук передвежения шашки (после 5 минут игры жутко раздражает...)*/
+var winSound = document.getElementById("winSound");		/*победная мелодия (проигрывается после окончании партии)*/
+var windowHeight = window.innerHeight || document.documentElement.clientHeight || document.body.clientHeight;	/*высота экрана*/
+var windowWidth = window.innerWidth || document.documentElement.clientWidth || document.body.clientWidth;		/*ширина экрана*/
+var moveLength = 80;	/*длина хода (на сколько смещается шашка)*/
+var moveDeviation = 10;	/*отклонение (нужен при изменении длины хода шашки)*/
+var Dimension = 1;	
+var selectedPiece, selectedPieceindex;	
+var upRight, upLeft, downLeft, downRight; /*булевая переменная необходимая для проверки движения шашек*/
+var contor = 0, gameOver = 0;
+var bigScreen = 1;	
+var block = [];		/*массив блоков (квадратов) поля*/
+var whiteСhecker = [];	/*массив белых шашек*/
+var blackChecker = [];	/*массив чёрных шашек*/
+var theChecker;		/*активная шашка*/
+var oneMove;	/*булевая переменная необходима для отображения только одного доступного хода шашки*/
+var anotherMove;	/*булевая переменная необходимая для отображения доступных ходов шашки*/
+var mustAttack = false;		/*булевая переменная необходимой атаки (при значении true любые другие шаги шашки отменяются)*/
+var multiplier = 1		/*Сколько игроков*/
+var tableLimit, reverseTableLimit, moveUpLeft, moveUpRight, moveDownLeft, moveDownRight, tableLimitLeft, tableLimitRight;
 
 	getDimension();
 	if(windowWidth > 640){
@@ -143,57 +135,57 @@ checker.prototype.checkIfKing = function () {
 
 
 for (var i = 1; i <=64; i++)
-	block[i] =new square_p(square_class[i],i);
+	block[i] =new square_p(squareСlass[i],i);
 
 
 
 
 for (var i = 1; i <= 4; i++){
-	w_checker[i] = new checker(white_checker_class[i], "white", 2*i -1 );
-	w_checker[i].setCoord(0,0);
+	whiteСhecker[i] = new checker(whiteСheckerСlass[i], "white", 2*i -1 );
+	whiteСhecker[i].setCoord(0,0);
 	block[2*i - 1].ocupied = true;
-	block[2*i - 1].pieceId =w_checker[i];
+	block[2*i - 1].pieceId =whiteСhecker[i];
 }
 
 for (var i = 5; i <= 8; i++){
-	w_checker[i] = new checker(white_checker_class[i], "white", 2*i );
-	w_checker[i].setCoord(0,0);
+	whiteСhecker[i] = new checker(whiteСheckerСlass[i], "white", 2*i );
+	whiteСhecker[i].setCoord(0,0);
 	block[2*i].ocupied = true;
-	block[2*i].pieceId = w_checker[i];
+	block[2*i].pieceId = whiteСhecker[i];
 }
 
 for (var i = 9; i <= 12; i++){
-	w_checker[i] = new checker(white_checker_class[i], "white", 2*i - 1 );
-	w_checker[i].setCoord(0,0);
+	whiteСhecker[i] = new checker(whiteСheckerСlass[i], "white", 2*i - 1 );
+	whiteСhecker[i].setCoord(0,0);
 	block[2*i - 1].ocupied = true;
-	block[2*i - 1].pieceId = w_checker[i];
+	block[2*i - 1].pieceId = whiteСhecker[i];
 }
 
 for (var i = 1; i <= 4; i++){
-	b_checker[i] = new checker(black_checker_class[i], "black", 56 + 2*i  );
-	b_checker[i].setCoord(0,0);
+	blackChecker[i] = new checker(blackСheckerСlass[i], "black", 56 + 2*i  );
+	blackChecker[i].setCoord(0,0);
 	block[56 +  2*i ].ocupied = true;
-	block[56+  2*i ].pieceId =b_checker[i];
+	block[56+  2*i ].pieceId =blackChecker[i];
 }
 
 for (var i = 5; i <= 8; i++){
-	b_checker[i] = new checker(black_checker_class[i], "black", 40 +  2*i - 1 );
-	b_checker[i].setCoord(0,0);
+	blackChecker[i] = new checker(blackСheckerСlass[i], "black", 40 +  2*i - 1 );
+	blackChecker[i].setCoord(0,0);
 	block[ 40 + 2*i - 1].ocupied = true;
-	block[ 40 + 2*i - 1].pieceId = b_checker[i];
+	block[ 40 + 2*i - 1].pieceId = blackChecker[i];
 }
 
 for (var i = 9; i <= 12; i++){
-	b_checker[i] = new checker(black_checker_class[i], "black", 24 + 2*i  );
-	b_checker[i].setCoord(0,0);
+	blackChecker[i] = new checker(blackСheckerСlass[i], "black", 24 + 2*i  );
+	blackChecker[i].setCoord(0,0);
 	block[24 + 2*i ].ocupied = true;
-	block[24 + 2*i ].pieceId = b_checker[i];
+	block[24 + 2*i ].pieceId = blackChecker[i];
 }
 
 
 
 
-the_checker = w_checker;
+theChecker = whiteСhecker;
 
 /**
  * Отрисовка "обычного" перемещения шашки по полю (без атаки противника)
@@ -210,7 +202,7 @@ function showMoves (piece) {
 	selectedPiece = piece;
 	var i,j; 
 	for ( j = 1; j <= 12; j++){
-		if(the_checker[j].id == piece){
+		if(theChecker[j].id == piece){
 			i = j;
 			selectedPieceindex = j;
 			match = true;
@@ -222,7 +214,7 @@ function showMoves (piece) {
 		oneMove = undefined;
 		return false;
 	}
-	if(oneMove && oneMove != the_checker[i] ){
+	if(oneMove && oneMove != theChecker[i] ){
 		return false;
 	}
 
@@ -230,7 +222,7 @@ function showMoves (piece) {
 	 return 0 ; 
 	}
 
-	if(the_checker[i].color =="white"){
+	if(theChecker[i].color =="white"){
 		tableLimit = 8;
 		tableLimitRight = 1;
 		tableLimitLeft = 8;
@@ -250,16 +242,16 @@ function showMoves (piece) {
 	}
 
 
-		attackMoves(the_checker[i]); 
+		attackMoves(theChecker[i]); 
 	
 
 
  	if(!mustAttack){
- 	  downLeft = checkMove( the_checker[i] , tableLimit , tableLimitRight , moveUpRight , downLeft);
-		downRight = checkMove( the_checker[i] , tableLimit , tableLimitLeft , moveUpLeft , downRight);
-		if(the_checker[i].king){
-			upLeft = checkMove( the_checker[i] , reverse_tableLimit , tableLimitRight , moveDownRight , upLeft);
-			upRight = checkMove( the_checker[i], reverse_tableLimit , tableLimitLeft , moveDownLeft, upRight)
+ 	  downLeft = checkMove( theChecker[i] , tableLimit , tableLimitRight , moveUpRight , downLeft);
+		downRight = checkMove( theChecker[i] , tableLimit , tableLimitLeft , moveUpLeft , downRight);
+		if(theChecker[i].king){
+			upLeft = checkMove( theChecker[i] , reverseTableLimit , tableLimitRight , moveDownRight , upLeft);
+			upRight = checkMove( theChecker[i], reverseTableLimit , tableLimitLeft , moveDownLeft, upRight)
 		}
 	}
 	if(downLeft || downRight || upLeft || upRight){
@@ -300,7 +292,7 @@ function makeMove (index) {
 		return false;
 	}
 
-	if(the_checker[1].color=="white"){
+	if(theChecker[1].color=="white"){
 		cpy_downRight = upRight;
 		cpy_downLeft = upLeft;
 		cpy_upLeft = downLeft;
@@ -321,7 +313,7 @@ function makeMove (index) {
 
 		if(index == cpy_upRight){
 			isMove = true;		
-			if(the_checker[1].color=="white"){
+			if(theChecker[1].color=="white"){
 				executeMove( multiplier * 1, multiplier * 1, multiplier * 9 );
 				if(mustAttack) eliminateCheck(index - 9);
 			}
@@ -334,7 +326,7 @@ function makeMove (index) {
 		if(index == cpy_upLeft){
 	
 			isMove = true;
-			if(the_checker[1].color=="white"){
+			if(theChecker[1].color=="white"){
 				executeMove( multiplier * -1, multiplier * 1, multiplier * 7);
 			 	if(mustAttack)	eliminateCheck(index - 7 );				
 			}
@@ -344,11 +336,11 @@ function makeMove (index) {
 			}
 		}
 
-		if(the_checker[selectedPieceindex].king){
+		if(theChecker[selectedPieceindex].king){
 
 			if(index == cpy_downRight){
 				isMove = true;
-				if(the_checker[1].color=="white"){
+				if(theChecker[1].color=="white"){
 					executeMove( multiplier * 1, multiplier * -1, multiplier * -7);
 					if(mustAttack) eliminateCheck ( index  + 7) ;
 				}
@@ -360,7 +352,7 @@ function makeMove (index) {
 
 		if(index == cpy_downLeft){
 			isMove = true;
-				if(the_checker[1].color=="white"){
+				if(theChecker[1].color=="white"){
 					executeMove( multiplier * -1, multiplier * -1, multiplier * -9);
 					if(mustAttack) eliminateCheck ( index  + 9) ;
 				}
@@ -372,20 +364,20 @@ function makeMove (index) {
 		}
 
 	erase_roads(0);
-	the_checker[selectedPieceindex].checkIfKing();
+	theChecker[selectedPieceindex].checkIfKing();
 	if (isMove) {
 			playSound(moveSound);
 			anotherMove = undefined;
 		 if(mustAttack) {
-			 	anotherMove = attackMoves(the_checker[selectedPieceindex]);
+			 	anotherMove = attackMoves(theChecker[selectedPieceindex]);
 		 }
 		if (anotherMove){
-			oneMove = the_checker[selectedPieceindex];
+			oneMove = theChecker[selectedPieceindex];
 			showMoves(oneMove);
 		}
 		else{
 			oneMove = undefined;
-		 	changeTurns(the_checker[1]);
+		 	changeTurns(theChecker[1]);
 		 	gameOver = checkIfLost();
 		 	if(gameOver) { setTimeout( declareWinner(),3000 ); return false};
 		 	gameOver = checkForMoves();
@@ -403,13 +395,13 @@ function makeMove (index) {
  * @return null
  */
 function executeMove (X,Y,nSquare){
-	the_checker[selectedPieceindex].changeCoord(X,Y); 
-	the_checker[selectedPieceindex].setCoord(0,0);
-	block[the_checker[selectedPieceindex].ocupied_square].ocupied = false;
-	block[the_checker[selectedPieceindex].ocupied_square + nSquare].ocupied = true;
-	block[the_checker[selectedPieceindex].ocupied_square + nSquare].pieceId = 	block[the_checker[selectedPieceindex].ocupied_square ].pieceId;
-	block[the_checker[selectedPieceindex].ocupied_square ].pieceId = undefined; 	
-	the_checker[selectedPieceindex].ocupied_square += nSquare;
+	theChecker[selectedPieceindex].changeCoord(X,Y); 
+	theChecker[selectedPieceindex].setCoord(0,0);
+	block[theChecker[selectedPieceindex].ocupied_square].ocupied = false;
+	block[theChecker[selectedPieceindex].ocupied_square + nSquare].ocupied = true;
+	block[theChecker[selectedPieceindex].ocupied_square + nSquare].pieceId = 	block[theChecker[selectedPieceindex].ocupied_square ].pieceId;
+	block[theChecker[selectedPieceindex].ocupied_square ].pieceId = undefined; 	
+	theChecker[selectedPieceindex].ocupied_square += nSquare;
 
 }
 
@@ -542,9 +534,9 @@ function attackMoves(ckc){
  */
 function changeTurns(ckc){
 		if(ckc.color=="white")
-	the_checker = b_checker;
+	theChecker = blackChecker;
 else
-	the_checker = w_checker;
+	theChecker = whiteСhecker;
  }
 
 /**
@@ -555,7 +547,7 @@ else
 function checkIfLost(){
 	var i;
 	for(i = 1 ; i <= 12; i++)
-		if(the_checker[i].alive)
+		if(theChecker[i].alive)
 			return false;
 	return true;
 }
@@ -568,7 +560,7 @@ function checkIfLost(){
 function  checkForMoves(){
 	var i ;
 	for(i = 1 ; i <= 12; i++)
-		if(the_checker[i].alive && showMoves(the_checker[i].id)){
+		if(theChecker[i].alive && showMoves(theChecker[i].id)){
 			erase_roads(0);
 			return false;
 		}
@@ -582,9 +574,9 @@ function  checkForMoves(){
  */
 function declareWinner(){
 	playSound(winSound);
-	black_background.style.display = "inline";
+	blackBackground.style.display = "inline";
 	score.style.display = "block";
-if(the_checker[1].color == "white")
+if(theChecker[1].color == "white")
 	score.innerHTML = "Black wins";
 else
 	score.innerHTML = "Red wins";
@@ -618,7 +610,7 @@ function getDimension (){
 document.getElementsByTagName("BODY")[0].onresize = function(){
 
 	getDimension();
-	var cpy_bigScreen = bigScreen ;
+	var cpyBigScreen = bigScreen ;
 
 if(windowWidth < 650){
 		moveLength = 50;
@@ -631,10 +623,10 @@ if(windowWidth > 650){
 		if(bigScreen == -1) bigScreen = 1;
 	}
 
-	if(bigScreen !=cpy_bigScreen){
+	if(bigScreen !=cpyBigScreen){
 	for(var i = 1; i <= 12; i++){
-		b_checker[i].setCoord(0,0);
-		w_checker[i].setCoord(0,0);
+		blackChecker[i].setCoord(0,0);
+		whiteСhecker[i].setCoord(0,0);
 	}
 	}
 }
