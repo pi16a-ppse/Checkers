@@ -38,12 +38,12 @@ var tableLimit, reverseTableLimit, moveUpLeft, moveUpRight, moveDownLeft, moveDo
 
 /**
  * Инициализация игрового поля
- * @method square_p
+ * @method Square
  * @param {int} square - квадрат (площадь) поля
  * @param {int} index - индекс квадрата, с которым будем работать
  * @return null
  */
-var square_p = function(square,index){
+var Square = function(square,index){
 	this.id = square;
 	this.ocupied = false;
 	this.pieceId = undefined;
@@ -135,7 +135,7 @@ checker.prototype.checkIfKing = function () {
 
 
 for (var i = 1; i <=64; i++)
-	block[i] =new square_p(squareСlass[i],i);
+	block[i] =new Square(squareСlass[i],i);
 
 
 
@@ -197,7 +197,7 @@ function showMoves (piece) {
 	var match = false;
 	mustAttack = false;
 	if(selectedPiece){
-			erase_roads(selectedPiece);
+			eraseRoads(selectedPiece);
 	}
 	selectedPiece = piece;
 	var i,j; 
@@ -264,11 +264,11 @@ function showMoves (piece) {
 
 /**
  * Закрашивание квадрата в стандартный цвет при перемещении шашки
- * @method erase_roads
+ * @method eraseRoads
  * @param {int} piece - идентификатор "стороны" игрового поля (белых/чёрных). Если переменная равна 0, движение шашки не происходит.
  * @return null
  */
-function erase_roads(piece){
+function eraseRoads(piece){
 	if(downRight) block[downRight].id.style.background = "#BA7A3A";
 	if(downLeft) block[downLeft].id.style.background = "#BA7A3A";
 	if(upRight) block[upRight].id.style.background = "#BA7A3A";
@@ -287,7 +287,7 @@ function makeMove (index) {
 	if(!selectedPiece) 
 		return false;
 	if(index != upLeft && index != upRight && index != downLeft && index != downRight){
-		erase_roads(0);
+		eraseRoads(0);
 		selectedPiece = undefined;
 		return false;
 	}
@@ -363,7 +363,7 @@ function makeMove (index) {
 			}
 		}
 
-	erase_roads(0);
+	eraseRoads(0);
 	theChecker[selectedPieceindex].checkIfKing();
 	if (isMove) {
 			playSound(moveSound);
@@ -561,7 +561,7 @@ function  checkForMoves(){
 	var i ;
 	for(i = 1 ; i <= 12; i++)
 		if(theChecker[i].alive && showMoves(theChecker[i].id)){
-			erase_roads(0);
+			eraseRoads(0);
 			return false;
 		}
 	return true;
