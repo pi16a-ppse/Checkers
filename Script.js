@@ -18,7 +18,7 @@ var moveLength = 80 ;
 var moveDeviation = 10;
 var Dimension = 1;
 var selectedPiece,selectedPieceindex;
-var upRight,upLeft,downLeft,downRight;  
+var upRight,upLeft,downLeft,downRight;  // все возможные варианты для дамки
 var contor = 0 , gameOver = 0;
 var bigScreen = 1;
 
