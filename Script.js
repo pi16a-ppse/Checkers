@@ -29,8 +29,7 @@ getDimension();
 if(windowWidth > 640) {
     moveLength = 80;
     moveDeviation = 10;
-}
-else {
+} else {
     moveLength = 50;
     moveDeviation = 6;
 }
@@ -74,8 +73,7 @@ var checker = function(piece, color, square) {
     if(square%8) {
         this.coordX= square%8;
         this.coordY = Math.floor(square / 8) + 1 ;
-    }
-    else {
+    } else {
         this.coordX = 8;
         this.coordY = square / 8 ;
     }
@@ -230,8 +228,7 @@ function showMoves (piece) {
         moveUpLeft = 9;
         moveDownRight = - 9;
         moveDownLeft = -7;
-    }
-    else {
+    } else {
         tableLimit = 1;
         tableLimitRight = 8;
         tableLimitLeft = 1;
@@ -268,10 +265,18 @@ function showMoves (piece) {
  * @return null
  */
 function eraseRoads(piece) {
-    if(downRight) block[downRight].id.style.background = "#BA7A3A";
-    if(downLeft) block[downLeft].id.style.background = "#BA7A3A";
-    if(upRight) block[upRight].id.style.background = "#BA7A3A";
-    if(upLeft) block[upLeft].id.style.background = "#BA7A3A";
+    if(downRight) {
+        block[downRight].id.style.background = "#BA7A3A";
+    }
+    if(downLeft) {
+        block[downLeft].id.style.background = "#BA7A3A";
+    }
+    if(upRight) {
+        block[upRight].id.style.background = "#BA7A3A";
+    }
+    if(upLeft) {
+        block[upLeft].id.style.background = "#BA7A3A";
+    }
 }
         
 
@@ -296,8 +301,7 @@ function makeMove (index) {
         cpy_downLeft = upLeft;
         cpy_upLeft = downLeft;
         cpy_upRight = downRight;
-    }
-    else {
+    } else {
         cpy_downRight = upLeft;
         cpy_downLeft = upRight;
         cpy_upLeft = downRight;
@@ -313,8 +317,7 @@ function makeMove (index) {
             if(theChecker[1].color=="white") {
                 executeMove( multiplier * 1, multiplier * 1, multiplier * 9 );
                 if(mustAttack) eliminateCheck(index - 9);
-            }
-            else {
+            } else {
                 executeMove( multiplier * 1, multiplier * -1, multiplier * -7);
                 if(mustAttack) eliminateCheck( index + 7 );
             }
@@ -327,8 +330,7 @@ function makeMove (index) {
                 if(mustAttack) {  
                     eliminateCheck(index - 7 );
                 }          
-            }
-            else {
+            } else {
                 executeMove( multiplier * -1, multiplier * -1, multiplier * -9);
                 if (mustAttack) { 
                     eliminateCheck( index + 9 );
@@ -344,8 +346,7 @@ function makeMove (index) {
                     if(mustAttack) {
                         eliminateCheck (index + 7);
                     }
-                }
-                else {
+                } else {
                     executeMove (multiplier * 1, multiplier * 1, multiplier * 9);
                     if(mustAttack) {
                         eliminateCheck (index  - 9);
@@ -360,8 +361,7 @@ function makeMove (index) {
                     if(mustAttack) {
                         eliminateCheck (index  + 9);
                     }
-                }
-                else {
+                } else {
                     executeMove(multiplier * -1, multiplier * 1, multiplier * 7);
                     if(mustAttack) {
                         eliminateCheck (index  - 7):
@@ -381,8 +381,7 @@ function makeMove (index) {
         if (anotherMove) {
             oneMove = theChecker[selectedPieceindex];
             showMoves(oneMove);
-        }
-        else {
+        } else {
             oneMove = undefined;
             changeTurns(theChecker[1]);
             gameOver = checkIfLost();
@@ -432,12 +431,10 @@ function checkMove(Apiece, tLimit, tLimit_Side, moveDirection, theDirection) {
         if(Apiece.coordX != tLimit_Side && !block[ Apiece.ocupied_square + moveDirection ].ocupied) {
             block[ Apiece.ocupied_square + moveDirection ].id.style.background = "#704923";
             theDirection = Apiece.ocupied_square + moveDirection;
-        }
-        else {
+        } else {
             theDirection = undefined;
         }
-    }
-    else {
+    } else {
         theDirection = undefined;
     }
     return theDirection;
@@ -498,8 +495,7 @@ function attackMoves(ckc) {
         if(ckc.color == "white") {
             upRight = checkAttack( ckc , 6, 3 , -1 , -1 , -7, upRight );
             upLeft = checkAttack( ckc, 3 , 3 , 1 , -1 , -9 , upLeft );
-        }
-        else {
+        } else {
             downLeft = checkAttack( ckc , 3, 6, 1 , 1 , 7 , downLeft );
             downRight = checkAttack( ckc , 6 , 6 , -1, 1 ,9 , downRight );      
         }
@@ -507,8 +503,7 @@ function attackMoves(ckc) {
     if(ckc.color == "white") {
         downLeft = checkAttack( ckc , 3, 6, 1 , 1 , 7 , downLeft );
         downRight = checkAttack( ckc , 6 , 6 , -1, 1 ,9 , downRight );
-    }
-    else {
+    } else {
         upRight = checkAttack( ckc , 6, 3 , -1 , -1 , -7, upRight );
         upLeft = checkAttack( ckc, 3 , 3 , 1 , -1 , -9 , upLeft );
     }
@@ -545,8 +540,7 @@ function attackMoves(ckc) {
 function changeTurns(ckc) {
     if(ckc.color=="white") {
         theChecker = blackChecker;
-    }
-    else {
+    } else {
         theChecker = whiteСhecker;
     }
  }
@@ -590,8 +584,7 @@ function declareWinner() {
     score.style.display = "block";
     if(theChecker[1].color == "white") {
         score.innerHTML = "Black wins";
-    }
-    else {
+    } else {
         score.innerHTML = "Red wins";
     }
 }
