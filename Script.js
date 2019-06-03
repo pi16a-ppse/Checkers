@@ -134,8 +134,9 @@ checker.prototype.checkIfKing = function () {
 
 
 
-for (var i = 1; i <=64; i++)
+for (var i = 1; i <=64; i++){
 	block[i] =new Square(squareСlass[i],i);
+}
 
 
 
@@ -185,7 +186,7 @@ for (var i = 9; i <= 12; i++){
 
 
 
-theChecker = whiteСhecker;
+theChecker = whiteСhecker;	/*Текущая/выбранная шашка*/
 
 /**
  * Отрисовка "обычного" перемещения шашки по полю (без атаки противника)
@@ -219,7 +220,7 @@ function showMoves (piece) {
 	}
 
 	if(!match) {
-	 return 0 ; 
+		return 0 ; 
 	}
 
 	if(theChecker[i].color =="white"){
